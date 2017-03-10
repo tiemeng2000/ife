@@ -89,16 +89,20 @@ function render(data) {
   }
 
   //将data写入resort中
-  data.forEach(function(value){
+  data.forEach(function(value,index){
     //创建b节点
     var b = document.createElement('b');
-    var bc = document.createTextNode(value[0]);
+    var bc = document.createTextNode(value[1]);
     b.appendChild(bc);
+
+
     //创建li节点
     var li = document.createElement('li');
-    var lc = document.createTextNode(value[1]);
-    li.appendChild(b);
+    var lc = document.createTextNode("第"+index+"名: "+value[0]);
     li.appendChild(lc);
+    li.appendChild(b);
+
+
     //将li挂在resort下
     rst.appendChild(li);
   });
