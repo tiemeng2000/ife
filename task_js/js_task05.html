@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task04</title>
+	<style type="text/css">
+		.resultList{
+			margin-right: 5px;
+			float:left;
+			display:block;			
+			background-color:red;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="task">
+		<div id="control-panel">
+			<input type="text" id="get-num" name="get-num">
+			<input type="button" id="left-in" name="left-in" value="左侧入">
+			<input type="button" id="right-in" name="right-in" value="右侧入" style="margin-right:20px;">
+			<input type="button" id="left-out" name="left-out" value="左侧出">
+			<input type="button" id="right-out" name="right-out" value="右侧出">
+		</div>
+		
+		<div id="result-panel">
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+		var result = [];
+		var textInput = document.getElementById("get-num");
+		var btnLeftIn = document.getElementById("left-in");
+		var btnRightIn = document.getElementById("right-in");
+		var btnLeftOut = document.getElementById("left-out");
+		var btnRightOut = document.getElementById("right-out");
+
+		var inputNum = null;
+
+		function getNum (){			
+			if(result.length>=60){
+				alert("队列数量达到上限60");
+				return "invalid"
+			}
+			else if(textInput.value<=100&&textInput.value>=10){
+				inputNum = textInput.value;
+				return inputNum;
+			}
+			else{
+				alert("数字不在范围内");
+				return "invalid"
+			}
+		}
+		function addNum(pos){
+			var num=getNum();
+			if (num!="invalid"){
+				var resultPanel = document.getElementById("result-panel");
+				var resultPanelChild = resultPanel.childNodes;
+				var ele = document.createElement("span");
+				ele.className = "resultList";
+				ele.setAttribute("height",num+"px");
+				ele.setAttribute("width","10px");
+				if (pos=="left"){
+					if(num){
+						result.unshift(num);
+					}
+					ele.textContent = result[0];
+					resultPanel.insertBefore(ele, resultPanelChild[0]);
+				}else if (pos=="right"){							
+					if(num){
+						result.push(num);
+					}
+					ele.textContent = result[result.length-1];
+					resultPanel.append(ele);
+				}
+
+			}
+
+
+			else{
+				return 0;
+			}	
+			
+		}
+
+		function delNum(pos){
+
+			var resultPanel = document.getElementById("result-panel");
+			var resultPanelChild = resultPanel.childNodes;
+			var delnum=null;
+			if (resultPanelChild.length){
+				if(pos=="left"){
+					delnum = resultPanelChild[0].textContent;
+					resultPanel.removeChild(resultPanelChild[0]);
+				}else if(pos=="right"){
+					var delnum = resultPanelChild[resultPanelChild.length-1].textContent;
+					resultPanel.removeChild(resultPanelChild[resultPanelChild.length-1]);
+				}
+				return delnum;
+			}
+		}
+
+		btnLeftIn.addEventListener("click", leftIn);
+		function leftIn(){
+			addNum("left");
+		}
+
+		btnRightIn.addEventListener("click", rightIn);
+		function rightIn(){
+			addNum("right");
+
+		}
+
+		btnLeftOut.addEventListener("click", LeftOut);
+		function LeftOut(){
+			delNum("left");
+		}
+
+		btnRightOut.addEventListener("click", RightOut);
+		function RightOut(){
+			delNum("right");
+		}
+
+
+
+
+	</script>
+</body>
+</html>
