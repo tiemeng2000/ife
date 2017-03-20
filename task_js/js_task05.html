@@ -21,10 +21,12 @@
 	<div id="task">
 		<div id="control-panel">
 			<input type="text" id="get-num" name="get-num">
-			<input type="button" id="left-in" name="left-in" value="左侧入">
-			<input type="button" id="right-in" name="right-in" value="右侧入" style="margin-right:20px;">
-			<input type="button" id="left-out" name="left-out" value="左侧出">
-			<input type="button" id="right-out" name="right-out" value="右侧出">
+			<input type="button" id="left-in" name="left-in" value="左侧入"/>
+			<input type="button" id="right-in" name="right-in" value="右侧入" style="margin-right:20px;"/>
+			<input type="button" id="left-out" name="left-out" value="左侧出"/>
+			<input type="button" id="right-out" name="right-out" value="右侧出"/>
+			<input type="button" id="random-num" name="random-num" value="随机数组"/>
+			<input type="button" id="sort-num" name="sort-num" value="排序"/>
 		</div>
 		
 		<div id="result-panel">			
@@ -37,7 +39,8 @@
 		var btnRightIn = document.getElementById("right-in");
 		var btnLeftOut = document.getElementById("left-out");
 		var btnRightOut = document.getElementById("right-out");
-
+		var btnRandom = document.getElementById("random-num");
+		var btnSort= document.getElementById('sort-num');
 		var inputNum = null;
 
 		function getNum (){			
@@ -54,8 +57,7 @@
 				return "invalid"
 			}
 		}
-		function addNum(pos){
-			var num=getNum();
+		function addNum(pos, num){
 			if (num!="invalid"){
 				var resultPanel = document.getElementById("result-panel");
 				var resultPanelChild = resultPanel.childNodes;
@@ -108,12 +110,12 @@
 
 		btnLeftIn.addEventListener("click", leftIn);
 		function leftIn(){
-			addNum("left");
+			addNum("left",getNum());
 		}
 
 		btnRightIn.addEventListener("click", rightIn);
 		function rightIn(){
-			addNum("right");
+			addNum("right",getNum());
 
 		}
 
@@ -127,6 +129,19 @@
 			delNum("right");
 		}
 
+		btnRandom.addEventListener("click", RandomNum);
+		function RandomNum(){
+			for(var i=0; i<60; i++){
+				var n = Math.floor(10+Math.random()*90);
+				addNum("left", n);
+			}
+
+		}
+
+		btnSort.addEventListener("click", SortNum);
+		function SortNum(){
+			
+		}
 
 
 
